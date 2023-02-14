@@ -759,11 +759,14 @@ public class Library_System {
         BufferedReader UserDetails = new BufferedReader( new FileReader("UserDetails.txt"));
         Scanner input = new Scanner(System.in);
         String check, yn;
-        String yesno = "loop", logged = "no"; 
+        String yesno = "loop", logged = "no";
+        String[] cont; 
 
         while( (check = UserDetails.readLine()) != null ){
 
-            if(check.contains(u) && check.contains(p)){
+            cont = check.split(" > ");
+
+            if(u.equals(cont[0]) && p.equals(cont[1])){
                 MainMenu();
                 return 1;
             }
@@ -776,7 +779,7 @@ public class Library_System {
                 System.out.printf("Would you like to try again?\n[Y]Yes\t[N]No\nChoice: ");
                 yn = input.nextLine();
                 if( yn.equalsIgnoreCase("N") ){
-                        return 0;
+                    return 0;
                 }
                 else {
                     return -1;
@@ -808,7 +811,7 @@ public class Library_System {
                 attempt = 5;
             }
             else if(check == 0){
-                if( exitconfirm() == 1 ){
+                if( exitconfirm() == 0 ){
                     clrscr();
                     return;
                 }
@@ -823,10 +826,7 @@ public class Library_System {
                     return;
                 }
             }
-
-
-
-
+            check = 0;
 
         }//end of log in loop
 
