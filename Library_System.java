@@ -77,7 +77,36 @@ public class Library_System {
     }
 
     static void unavail_books() throws IOException{
+        //file reader
+        File books = new File("BookLib.txt");
+        BufferedReader readbook = new BufferedReader(new FileReader(books));
+        //s will receive the content of the reader
+        String b;
 
+        //scanner for inputs
+        Scanner input = new Scanner(System.in);
+         
+        //cont > content of the string s as we split is into an array
+        String[] bookcont;
+
+        //Table Head
+        System.out.printf("_______________________________________________________________________________________________\n");
+        System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", "No.","Book Title", "Author", "Category", "Status");
+        System.out.printf("||=======+==========================+========================+=============+=================||\n");
+
+        //prints the content of lines while theres still content to read
+        while( (b = readbook.readLine()) != null ){
+            //splits the line when it encounter the parameter string
+            bookcont = b.split(" > ");
+
+            if( bookcont[4].equalsIgnoreCase("Unavailable") ){
+                //used printf to create a format in printing
+                System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
+                System.out.printf("||-------+--------------------------+------------------------+-------------+-----------------||\n");
+            }
+
+            
+        }
     }
 
     static void catprint(String cat, String catsort) throws IOException{
@@ -301,7 +330,7 @@ public class Library_System {
             
             System.out.println("=====BORROW=====\n");
             System.out.println("Search Title or Pick a Category:\n");
-            System.out.println("[M]Math\t[S]Science\t[L]Law\n[H]History\t[T]Language\t[C]Cancel\n");
+            System.out.println("[M]Math\t\t[S]Science\t[L]Law\n[H]History\t[T]Language\t[C]Cancel\n");
             System.out.println("Choose or Enter Title/Book number: "); searchkey = input.next();
             clrscr();
 
@@ -366,9 +395,9 @@ public class Library_System {
         {
             toret_log();
             
-            System.out.print("[>C]Cancel\nEnter Student Name/Book Title/Book no.\nEnter: ");
+            System.out.print("[C]Cancel\nEnter Student Name/Book Title/Book no.\nEnter: ");
             keyword = input1.nextLine();
-            if(keyword.equalsIgnoreCase(">C")){
+            if(keyword.equalsIgnoreCase("C")){
                 trigger = "end";
             }
 
