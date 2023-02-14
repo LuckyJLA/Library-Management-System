@@ -12,15 +12,12 @@ public class Library_System {
     }
 
     //prints all books
-    static void all_Books() throws IOException{
+    static void all_books() throws IOException{
         //file reader
         File books = new File("BookLib.txt");
         BufferedReader readbook = new BufferedReader(new FileReader(books));
         //s will receive the content of the reader
         String b;
-
-        //used for looping
-        String trigger = "loop";
 
         //scanner for inputs
         Scanner input = new Scanner(System.in);
@@ -28,43 +25,62 @@ public class Library_System {
         //cont > content of the string s as we split is into an array
         String[] bookcont;
 
-        while(trigger == "loop")
-        {
-            //Table Head
-            System.out.printf("_______________________________________________________________________________________________\n");
-            System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", "No.","Book Title", "Author", "Category", "Status");
-            System.out.printf("||=======+==========================+========================+=============+=================||\n");
+        //Table Head
+        System.out.printf("_______________________________________________________________________________________________\n");
+        System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", "No.","Book Title", "Author", "Category", "Status");
+        System.out.printf("||=======+==========================+========================+=============+=================||\n");
 
-            //prints the content of lines while theres still content to read
-            while( (b = readbook.readLine()) != null ){
-                //splits the line when it encounter the parameter string
-                bookcont = b.split(" > ");
+        //prints the content of lines while theres still content to read
+        while( (b = readbook.readLine()) != null ){
+            //splits the line when it encounter the parameter string
+            bookcont = b.split(" > ");
 
+            //used printf to create a format in printing
+            System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
+            System.out.printf("||-------+--------------------------+------------------------+-------------+-----------------||\n");
+        }
+        
+    }//end of all_Books
+
+    static void avail_books() throws IOException{
+        //file reader
+        File books = new File("BookLib.txt");
+        BufferedReader readbook = new BufferedReader(new FileReader(books));
+        //s will receive the content of the reader
+        String b;
+
+        //scanner for inputs
+        Scanner input = new Scanner(System.in);
+         
+        //cont > content of the string s as we split is into an array
+        String[] bookcont;
+
+        //Table Head
+        System.out.printf("_______________________________________________________________________________________________\n");
+        System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", "No.","Book Title", "Author", "Category", "Status");
+        System.out.printf("||=======+==========================+========================+=============+=================||\n");
+
+        //prints the content of lines while theres still content to read
+        while( (b = readbook.readLine()) != null ){
+            //splits the line when it encounter the parameter string
+            bookcont = b.split(" > ");
+
+            if( bookcont[4].equalsIgnoreCase("Available") ){
                 //used printf to create a format in printing
                 System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%12s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
                 System.out.printf("||-------+--------------------------+------------------------+-------------+-----------------||\n");
             }
 
-            System.out.print("\n[B] Back\t[A] Available Books\t[U] Unvailable\nChoice:");
-            String choice = input.next();
+            
+        }
 
-            if( choice.equalsIgnoreCase("X") ){
-                trigger = "end loop";
+    }
 
-            }
-            else if( choice.equalsIgnoreCase("A") ){
+    static void unavail_books() throws IOException{
 
-            }
-            else if( choice.equalsIgnoreCase("B") ){
+    }
 
-            }
-        }//end of trigger
-
-        
-    }//end of all_Books
-
-
-    static void catprint(String cat) throws IOException{
+    static void catprint(String cat, String catsort) throws IOException{
         //reads book BookLib.txt
         File books = new File("BookLib.txt");
         BufferedReader readBook = new BufferedReader(new FileReader(books));
@@ -82,12 +98,84 @@ public class Library_System {
         while( (s = readBook.readLine()) != null){
             bookcont = s.split(" > ");
 
-            if( (bookcont[4].equalsIgnoreCase("available")) && bookcont[3].equalsIgnoreCase(cat)){
+            if( bookcont[3].equalsIgnoreCase(cat) && catsort.equalsIgnoreCase("O")){
                 System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%10s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
                 System.out.printf("||-------+--------------------------+------------------------+-------------+---------------||\n");
-            }       
+            }
+            else if( bookcont[3].equalsIgnoreCase(cat) && catsort.equalsIgnoreCase("A") && bookcont[4].equalsIgnoreCase("Available") ){
+
+                System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%10s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
+                System.out.printf("||-------+--------------------------+------------------------+-------------+---------------||\n");
+            } 
+            else if( bookcont[3].equalsIgnoreCase(cat) && catsort.equalsIgnoreCase("U") && bookcont[4].equalsIgnoreCase("Unavailable") ){
+                System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%10s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
+                System.out.printf("||-------+--------------------------+------------------------+-------------+---------------||\n");
+            }  
         }
     }//end of catprint
+
+    static void view_books()throws IOException{
+        
+        Scanner input = new Scanner(System.in);
+        Scanner input2 = new Scanner(System.in);
+        String choice = "O"; String catsort;
+
+        String trigger = "loop";
+
+        while( trigger == "loop" )
+        {
+    
+            if( choice.equalsIgnoreCase("O") ){
+                all_books();
+            }
+            else if( choice.equalsIgnoreCase("X") ){
+                return;
+            }
+            else if( choice.equalsIgnoreCase("A") ){
+                avail_books();
+            }
+            else if( choice.equalsIgnoreCase("U") ){
+                unavail_books();
+            }
+            else if( choice.equalsIgnoreCase("M") ){
+                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                catsort = input2.next();
+                catprint("MATH", catsort);
+            }
+            else if( choice.equalsIgnoreCase("S") ){
+                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                catsort = input2.next();
+                catprint("SCIENCE", catsort);
+            }
+            else if( choice.equalsIgnoreCase("L") ){
+                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                catsort = input2.next();
+                catprint("LAW", catsort);
+            }
+            else if( choice.equalsIgnoreCase("H") ){
+                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                catsort = input2.next();
+                catprint("HISTORY", catsort);
+            }
+            else if( choice.equalsIgnoreCase("T") ){
+                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                catsort = input2.next();
+                catprint("LANGUAGE", catsort);
+            }
+            
+
+            System.out.printf("\n[O]All Books\t[A]Available Books\t[U]Unavailable Books\n");
+            System.out.println("========= CATEGORIES =========");
+            System.out.printf("[M]MATH\t\t[S]SCIENCE\t[L]LAW\n[H]HISTORY\t[T]LANGUAGE\t[X]Back\nChoice:");
+
+            choice = input.next();
+
+        }
+
+        
+
+    }
+
 
 
     static int borrow_Books(String searchkey) throws IOException, ParseException{
@@ -127,11 +215,11 @@ public class Library_System {
                 }
 
                 bookcont = b.split(" > ");
-                System.out.println("Title: " + bookcont[0]);
-                System.out.println("Author: " + bookcont[1]);
+                System.out.println("Title:\t" + bookcont[0]);
+                System.out.println("Author:\t" + bookcont[1]);
 
                 //enter date the book is being borrowed
-                System.out.printf("Date Borrow: "); String Bdate = input1.next();
+                System.out.printf("Date Borrow (mm-dd-yyyy): "); String Bdate = input1.next();
                 //converts String to Datetime format
                 SimpleDateFormat sdf = new SimpleDateFormat("mm-dd-yyyy");
                 Calendar c = Calendar.getInstance();
@@ -141,19 +229,21 @@ public class Library_System {
                 c.setTime(dateB);
                 c.add(Calendar.DAY_OF_MONTH, 5);
                 Date dateD = c.getTime(); String Ddate = sdf.format(dateD);
-                System.out.println("Due Date: "+ Ddate);
+                System.out.println("Due Date (mm-dd-yyyy): "+ Ddate);
                 
                 //name of the borrower
                 System.out.flush();
-                System.out.printf("Name: "); String name = input2.nextLine();
+                System.out.printf("Name:\t"); String name = input2.nextLine();
 
                 System.out.printf("\n[A]Confirm\t[B]Cancel\nChoose:");
                 String CC = input3.next();
                 
                 //confirms borrowing
                 if(CC.equalsIgnoreCase("A")){
+                    
                     File logs = new File("LogLib.txt");
                     BufferedWriter bwLogs = new BufferedWriter(new FileWriter(logs, true));
+                    
                     System.out.println("Confirmed");
                     confirm = 1;
 
@@ -211,26 +301,26 @@ public class Library_System {
             
             System.out.println("=====BORROW=====\n");
             System.out.println("Search Title or Pick a Category:\n");
-            System.out.println("[>M]Math\t[>S]Science\t[>L]Law\n[>H]History\t[>T]Language\t[>C]Cancel\n");
+            System.out.println("[M]Math\t[S]Science\t[L]Law\n[H]History\t[T]Language\t[C]Cancel\n");
             System.out.println("Choose or Enter Title/Book number: "); searchkey = input.next();
             clrscr();
 
-            if(searchkey.equalsIgnoreCase(">M")){
-                catprint("MATH");
+            if(searchkey.equalsIgnoreCase("M")){
+                catprint("MATH", "A");
             }
-            else if(searchkey.equalsIgnoreCase(">S")){
-                catprint("SCIENCE");
+            else if(searchkey.equalsIgnoreCase("S")){
+                catprint("SCIENCE", "A");
             }
-            else if(searchkey.equalsIgnoreCase(">L")){
-                catprint("LAW");
+            else if(searchkey.equalsIgnoreCase("L")){
+                catprint("LAW", "A");
             }
-            else if(searchkey.equalsIgnoreCase(">H")){
-                catprint("HISTORY");
+            else if(searchkey.equalsIgnoreCase("H")){
+                catprint("HISTORY", "A");
             }
-            else if(searchkey.equalsIgnoreCase(">T")){
-                catprint("LANGUAGE");
+            else if(searchkey.equalsIgnoreCase("T")){
+                catprint("LANGUAGE", "A");
             }
-            else if(searchkey.equalsIgnoreCase(">C")){
+            else if(searchkey.equalsIgnoreCase("C")){
                 trigger="end";
             }
             else{
@@ -243,29 +333,7 @@ public class Library_System {
 
     }//end of borrow_menu
 
-    static void return_book_list()throws IOException, ParseException{
-
-        File logs = new File("LogLib.txt");
-        BufferedReader brLogs = new BufferedReader(new FileReader(logs));
-        String l;
-        String[] logcont;
-
-        System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
-            System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
-            System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
-            
-            
-            while( (l = brLogs.readLine()) != null){
-                logcont = l.split(" > ");
-                if(logcont[6].equalsIgnoreCase("To Return")){
-                                                // name | no | title | author | borrow date | due date | status | return date
-                    System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", logcont[0], logcont[1], logcont[2], logcont[3], logcont[4], logcont[5],logcont[6], logcont[7]);
-                    System.out.printf("||------------------------------+------+--------------------------------+-------------------------------+---------------+---------------+---------------+-----------------||\n");
-                }
-            }
-
-    }
-
+    //return a book
     static void return_book() throws IOException, ParseException{
 
         //File Reader
@@ -296,22 +364,7 @@ public class Library_System {
 
         while( trigger == "return" )
         {
-            return_book_list();
-            
-            /* 
-            System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
-            System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
-            System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
-            
-            
-            while( (l = brLogs.readLine()) != null){
-                logcont = l.split(" > ");
-                if(logcont[6].equalsIgnoreCase("To Return")){
-                                                // name | no | title | author | borrow date | due date | status | return date
-                    System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", logcont[0], logcont[1], logcont[2], logcont[3], logcont[4], logcont[5],logcont[6], logcont[7]);
-                    System.out.printf("||------------------------------+------+--------------------------------+-------------------------------+---------------+---------------+---------------+-----------------||\n");
-                }
-            }*/
+            toret_log();
             
             System.out.print("[>C]Cancel\nEnter Student Name/Book Title/Book no.\nEnter: ");
             keyword = input1.nextLine();
@@ -335,13 +388,13 @@ public class Library_System {
                     logcont = l.split(" > ");
 
                     
-                    System.out.println("Name: " + logcont[0]);
-                    System.out.println("Book No. : " + logcont[1]);
-                    System.out.println("Title: " + logcont[2]);
-                    System.out.println("Author: " + logcont[3]);
-                    System.out.println("Date Borrow: " + logcont[4]);
-                    System.out.println("Due Date: " + logcont[5]);
-                    System.out.printf("Return Date: "); String dateR = input1.nextLine();
+                    System.out.println("Name:\t" + logcont[0]);
+                    System.out.println("Book No.:\t " + logcont[1]);
+                    System.out.println("Title:\t" + logcont[2]);
+                    System.out.println("Author:\t" + logcont[3]);
+                    System.out.println("Date Borrow (mm-dd-yyyy): " + logcont[4]);
+                    System.out.println("Due Date (mm-dd-yyyy): " + logcont[5]);
+                    System.out.printf("Return Date (mm-dd-yyyy): "); String dateR = input1.nextLine();
                     SimpleDateFormat sdf = new SimpleDateFormat("mm-dd-yyyy");
                     Date dueDate = sdf.parse(logcont[5]);
                     Date retDate = sdf.parse(dateR);
@@ -360,8 +413,8 @@ public class Library_System {
                         System.out.println("Confirmed");
                         
                         confirm = 1;
-                        arrlogs.add( l.replace("To Return", "Returned") );
-                        arrlogs.add( l.replace("null" , dateR) );
+                        arrlogs.add( l.replace("To Return", "Returned").replace("null" , dateR) );
+                        //arrlogs.add( l.replace("null" , dateR) );
 
                     }
 
@@ -407,21 +460,42 @@ public class Library_System {
 
     }//end of retrun_book
 
-
-    //prints all logs with a "Returned" status
-    static void retlog() throws IOException{
+    //Prints all Logs
+    static void all_logs() throws IOException{
         String trigger = "viewLogs";
         Scanner input = new Scanner(System.in);
         File logs = new File("LogLib.txt");
         BufferedReader br = new BufferedReader(new FileReader(logs));
         String s; String[] brCont;
 
-        while(trigger == "viewLogs")
-        {
-            clrscr();
-            System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
-            System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
-            System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
+        clrscr();
+        System.out.printf("ALL==================================================================================ALL=================================================================================ALL\n\n");
+        System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
+        System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
+        System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
+            
+
+        while( (s = br.readLine()) != null ){
+            brCont = s.split(" > ");
+            System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", brCont[0], brCont[1], brCont[2], brCont[3], brCont[4], brCont[5],brCont[6], brCont[7]);
+            System.out.printf("||------------------------------+------+--------------------------------+-------------------------------+---------------+---------------+---------------+-----------------||\n");
+        }//end of printing
+
+    }
+
+    //prints all logs with a "Returned" status
+    static void ret_log() throws IOException{
+        String trigger = "viewLogs";
+        Scanner input = new Scanner(System.in);
+        File logs = new File("LogLib.txt");
+        BufferedReader br = new BufferedReader(new FileReader(logs));
+        String s; String[] brCont;
+
+        clrscr();
+        System.out.printf("RETUNED============================================================================RETURNED=========================================================================RETURNED\n\n");
+        System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
+        System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
+        System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
             
 
             while( (s = br.readLine()) != null ){
@@ -430,120 +504,67 @@ public class Library_System {
                     System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", brCont[0], brCont[1], brCont[2], brCont[3], brCont[4], brCont[5],brCont[6], brCont[7]);
                     System.out.printf("||------------------------------+------+--------------------------------+-------------------------------+---------------+---------------+---------------+-----------------||\n");
                 }
-            }
-
-            System.out.print("\n[B] Back\t[A] All Logs\t[T] To Return\nChoice:");
-            String choice = input.next();
-
-            if(choice.equalsIgnoreCase("B")){
-                br.close();
-                trigger = "end";
-            }
-            else if(choice.equalsIgnoreCase("A")){
-                br.close();
-                viewLogs();
-                trigger = "end";
-            }
-            else if(choice.equalsIgnoreCase("T")){
-                br.close();
-                toretlog();
-                trigger = "end";
-            }
+            }//end of printing
         
-        }
     }
 
     //prints all logs with a "To Return" Status
-    static void toretlog() throws IOException{
+    static void toret_log() throws IOException{
         String trigger = "viewLogs";
         Scanner input = new Scanner(System.in);
         File logs = new File("LogLib.txt");
         BufferedReader br = new BufferedReader(new FileReader(logs));
         String s; String[] brCont;
 
-        while(trigger == "viewLogs")
-        {
-            clrscr();
-            System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
-            System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
-            System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
+
+        clrscr();
+        System.out.printf("TO RETUNED=======================================================================TO RETURNED=====================================================================TO RETURNED\n\n");
+        System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
+        System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
+        System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
             
 
-            while( (s = br.readLine()) != null ){
-                brCont = s.split(" > ");
-                if(brCont[6].equalsIgnoreCase("To Return")){
-                    System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", brCont[0], brCont[1], brCont[2], brCont[3], brCont[4], brCont[5],brCont[6], brCont[7]);
+        while( (s = br.readLine()) != null ){
+            brCont = s.split(" > ");
+            if(brCont[6].equalsIgnoreCase("To Return")){
+                System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", brCont[0], brCont[1], brCont[2], brCont[3], brCont[4], brCont[5],brCont[6], brCont[7]);
                     System.out.printf("||------------------------------+------+--------------------------------+-------------------------------+---------------+---------------+---------------+-----------------||\n");
-                }
             }
-
-            System.out.print("\n[B] Back\t[A] All Logs\t[R] To Return\nChoice:");
-            String choice = input.next();
-
-            if(choice.equalsIgnoreCase("B")){
-                br.close();
-                trigger = "end";
-            }
-            else if(choice.equalsIgnoreCase("A")){
-                br.close();
-                viewLogs();
-                trigger = "end";
-            }
-            else if(choice.equalsIgnoreCase("R")){
-                br.close();
-                retlog();
-                trigger = "end";
-            }
-            
-        }
+        }//end of printing
 
     }
 
 
+    static void view_logs()throws IOException{
+        Scanner input = new Scanner (System.in);
+        String choice = "O";
 
-    //Prints all Logs
-    static void viewLogs() throws IOException{
-        String trigger = "viewLogs";
-        Scanner input = new Scanner(System.in);
-        File logs = new File("LogLib.txt");
-        BufferedReader br = new BufferedReader(new FileReader(logs));
-        String s; String[] brCont;
+        String trigger = "loop";
 
-        while(trigger == "viewLogs")
+        while( trigger == "loop" )
         {
             clrscr();
-            System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
-            System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
-            System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
+    
+            if( choice.equalsIgnoreCase("O")){
+                all_logs();
+            }
+            else if( choice.equalsIgnoreCase("X")){
+                return;
+            }
+            else if( choice.equalsIgnoreCase("T")){
+                toret_log();
+            }
+            else if( choice.equalsIgnoreCase("R")){
+                ret_log();
+            }
             
 
-            while( (s = br.readLine()) != null ){
-                brCont = s.split(" > ");
-                System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", brCont[0], brCont[1], brCont[2], brCont[3], brCont[4], brCont[5],brCont[6], brCont[7]);
-                System.out.printf("||------------------------------+------+--------------------------------+-------------------------------+---------------+---------------+---------------+-----------------||\n");
-                
-            }
+            System.out.printf("\n[O]All Logs\t[X]Back\n[T]To Return\t[R]Returned\nChoice:");
+            choice = input.next();
 
-            System.out.print("\n[B] Back\t[R] Returned\t[T] To Return\nChoice:");
-            String choice = input.next();
-
-            if(choice.equalsIgnoreCase("B")){
-                br.close();
-                trigger = "end";
-            }
-            else if(choice.equalsIgnoreCase("R")){
-                br.close();
-                retlog();
-                trigger = "end";
-            }
-            else if(choice.equalsIgnoreCase("T")){
-                br.close();
-                toretlog();
-                trigger = "end";
-            }
-        
         }
 
+        
     }
 
 
@@ -561,7 +582,7 @@ public class Library_System {
             
 
             if(choice.equalsIgnoreCase("A")){ //All Books
-                all_Books();
+                view_books();
             }
             else if(choice.equalsIgnoreCase("B")){ //Borrow
                 borrow_menu();
@@ -570,7 +591,7 @@ public class Library_System {
                 return_book();
             }
             else if(choice.equalsIgnoreCase("L")){ //Logs
-                viewLogs();
+                view_logs();
             }
             else if(choice.equalsIgnoreCase("X")){ //Exit
                 trigger = "end";
