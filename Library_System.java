@@ -127,15 +127,18 @@ public class Library_System {
         while( (s = readBook.readLine()) != null){
             bookcont = s.split(" > ");
 
+            //prints all books in the selected category
             if( bookcont[3].equalsIgnoreCase(cat) && catsort.equalsIgnoreCase("O")){
                 System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%10s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
                 System.out.printf("||-------+--------------------------+------------------------+-------------+---------------||\n");
             }
+            //prints all available books in the selected category
             else if( bookcont[3].equalsIgnoreCase(cat) && catsort.equalsIgnoreCase("A") && bookcont[4].equalsIgnoreCase("Available") ){
 
                 System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%10s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
                 System.out.printf("||-------+--------------------------+------------------------+-------------+---------------||\n");
             } 
+            //prints all unavailable books in the selected category
             else if( bookcont[3].equalsIgnoreCase(cat) && catsort.equalsIgnoreCase("U") && bookcont[4].equalsIgnoreCase("Unavailable") ){
                 System.out.printf("|| %-5s | %-25s|\t%20s |\t%10s |\t%10s ||\n", bookcont[0], bookcont[1], bookcont[2], bookcont[3], bookcont[4]);
                 System.out.printf("||-------+--------------------------+------------------------+-------------+---------------||\n");
@@ -147,6 +150,8 @@ public class Library_System {
         
         Scanner input = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
+
+        //the function starts by printing all books
         String choice = "O"; String catsort;
 
         String trigger = "loop";
@@ -167,6 +172,7 @@ public class Library_System {
                 unavail_books();
             }
             else if( choice.equalsIgnoreCase("M") ){
+                //will ask if the user only wants to see a more specific content
                 System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
                 catsort = input2.next();
                 catprint("MATH", catsort);
@@ -296,6 +302,7 @@ public class Library_System {
         }//end of while for readBooks
 
         if( confirm == 1){
+            //updates BookLib.txt
             FileWriter writer = new FileWriter(books);
             for(int i=0; i<arrayBook.size(); i++){
                 writer.append(arrayBook.get(i));
@@ -306,6 +313,7 @@ public class Library_System {
                 System.out.println("Transaction Complete!!!");
                 System.out.println("Press Enter Key...");
                 String key = input1.nextLine();
+                //only accepts enter key
                 if(key == ""){
                     //clrscr();
                     return 1;
@@ -334,6 +342,7 @@ public class Library_System {
             System.out.println("Choose or Enter Title/Book number: "); searchkey = input.next();
             clrscr();
 
+            //if-else statements for specific categories
             if(searchkey.equalsIgnoreCase("M")){
                 catprint("MATH", "A");
             }
@@ -361,6 +370,8 @@ public class Library_System {
         }// and of trigger
 
     }//end of borrow_menu
+
+    //baka dagdagan ko wait...
 
     //return a book
     static void return_book() throws IOException, ParseException{
@@ -393,6 +404,7 @@ public class Library_System {
 
         while( trigger == "return" )
         {
+            //prints all "To Return" books
             toret_log();
             
             System.out.print("[C]Cancel\nEnter Student Name/Book Title/Book no.\nEnter: ");
@@ -401,10 +413,13 @@ public class Library_System {
                 trigger = "end";
             }
 
+            //reads a line in the textfile till it reaches the end of the file
             while( (l = brLogs2.readLine()) != null ){
 
+                //if the string "l" contains the keyword
                 if( l.contains(keyword) ){
 
+                    //if the book is already returned
                     if( l.contains("Returned") ){
                         System.out.println("BOOK ALREADY RETURNED");
                         String key = input1.nextLine();
@@ -414,20 +429,25 @@ public class Library_System {
                         }
                     }
 
+                    //splits string "l" using a designated separator 
                     logcont = l.split(" > ");
 
-                    
+                    //Prints info from logs
                     System.out.println("Name:\t" + logcont[0]);
                     System.out.println("Book No.:\t " + logcont[1]);
                     System.out.println("Title:\t" + logcont[2]);
                     System.out.println("Author:\t" + logcont[3]);
                     System.out.println("Date Borrow (mm-dd-yyyy): " + logcont[4]);
                     System.out.println("Due Date (mm-dd-yyyy): " + logcont[5]);
+
+                    //takes the return date
                     System.out.printf("Return Date (mm-dd-yyyy): "); String dateR = input1.nextLine();
                     SimpleDateFormat sdf = new SimpleDateFormat("mm-dd-yyyy");
                     Date dueDate = sdf.parse(logcont[5]);
                     Date retDate = sdf.parse(dateR);
 
+                    //compares the Due date and the return date
+                    //if its later than the due date then day*10 pesos penaly 
                     if(dueDate.compareTo(retDate) < 0){
                         long dif = retDate.getTime() - dueDate.getTime();
                         long daysdif = (dif / (1000*60*60*24)) % 365;
@@ -442,8 +462,8 @@ public class Library_System {
                         System.out.println("Confirmed");
                         
                         confirm = 1;
+                        //updates the log
                         arrlogs.add( l.replace("To Return", "Returned").replace("null" , dateR) );
-                        //arrlogs.add( l.replace("null" , dateR) );
 
                     }
 
@@ -457,6 +477,7 @@ public class Library_System {
 
             if(confirm==1){
 
+                //updates the book's status
                 while( (b = brBooks.readLine()) != null ){
                     if( b.contains(keyword) ){
                         arrbook.add(b.replace("Unavailable","Available"));
@@ -547,7 +568,7 @@ public class Library_System {
 
 
         clrscr();
-        System.out.printf("TO RETUNED=======================================================================TO RETURNED=====================================================================TO RETURNED\n\n");
+        System.out.printf("TO RETURN==========================================================================TO RETURN=======================================================================TO RETURN\n\n");
         System.out.printf("____________________________________________________________________________________________________________________________________________________________________________\n");
         System.out.printf("|| %-25s\t| %-5s|  %-25s\t| %-25s\t| %-12s\t| %-12s\t|%15s| %15s ||\n", "Name","no.", "Title", "Author", "Borrow Date", "Due Date", "Status","Return Date");
         System.out.printf("||==============================+======+================================+===============================+===============+===============+===============+=================||\n");
@@ -564,8 +585,10 @@ public class Library_System {
     }
 
 
+    //menu for logs
     static void view_logs()throws IOException{
         Scanner input = new Scanner (System.in);
+        //function starts by printing all logs
         String choice = "O";
 
         String trigger = "loop";
