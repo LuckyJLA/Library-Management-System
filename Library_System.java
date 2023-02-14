@@ -158,6 +158,7 @@ public class Library_System {
 
         while( trigger == "loop" )
         {
+            clrscr();
     
             if( choice.equalsIgnoreCase("O") ){
                 all_books();
@@ -244,10 +245,11 @@ public class Library_System {
                     System.out.println("Press Enter Key...");
                     String key = input1.nextLine();
                     if(key == ""){
-                        //clrscr();
                         return 1;
                     }
                 }
+
+                clrscr();
 
                 bookcont = b.split(" > ");
                 System.out.println("Title:\t" + bookcont[0]);
@@ -335,7 +337,7 @@ public class Library_System {
 
         while(trigger == "loop")
         {
-            
+            clrscr();
             System.out.println("=====BORROW=====\n");
             System.out.println("Search Title or Pick a Category:\n");
             System.out.println("[M]Math\t\t[S]Science\t[L]Law\n[H]History\t[T]Language\t[C]Cancel\n");
@@ -404,6 +406,7 @@ public class Library_System {
 
         while( trigger == "return" )
         {
+            clrscr();
             //prints all "To Return" books
             toret_log();
             
@@ -424,11 +427,11 @@ public class Library_System {
                         System.out.println("BOOK ALREADY RETURNED");
                         String key = input1.nextLine();
                         if(key == ""){
-                            clrscr();
                             return;
                         }
                     }
 
+                    clrscr();
                     //splits string "l" using a designated separator 
                     logcont = l.split(" > ");
 
