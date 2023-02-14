@@ -1,0 +1,25 @@
+101 > Geometry > Ray Jurgensen > MATH > Available
+102 > Calculus > Bruce Edwards > MATH > Available
+103 > Statistics > Neil A. Weiss > MATH > Available
+104 > Graph Theory > Ronald Gould > MATH > Available
+105 > General Topology > Seymour Lipschutz > MATH > Available
+201 > Inheritance > Dani Shapiro > SCIENCE > Available
+202 > Big Bang > Simon Singh > SCIENCE > Available
+203 > Basic Physics > Karl F. Kuhn > SCIENCE > Available
+204 > History of Time > Stephen Hawking > SCIENCE > Available
+205 > Origin of Species > Charles Darwin > SCIENCE > Available
+301 > Letters to a Law Student > Nicholas J. McBride > LAW > Available
+302 > Legal Analyst > Ward Farnsworth > LAW > Available
+303 > Is Eating People Wrong? > Allan Hutchinson > LAW > Available
+304 > Special Penal Laws > Axel Rupert M. Cruz > LAW > Available
+305 > Philippine Political Law > Isagani Cruz > LAW > Available
+401 > Rampage > James M. Scott > HISTORY > Available
+402 > Philippine History > David Barrows > HISTORY > Available
+403 > Asian Place > Nicole Aboitiz > HISTORY > Available
+404 > Thunder on Bataan > Donald L. Caldwell > HISTORY > Available
+405 > Gender Politics > Kristin L. Hoganson > HISTORY > Available
+501 > Learn a Foreign Language > Paul Pimsleur > LANGUAGE > Available
+502 > Language Instinct > Steven Pinker > LANGUAGE > Available
+503 > Unfolding of Language > Guy Deutscher > LANGUAGE > Available
+504 > Words and Rules > Steven Pinker > LANGUAGE > Available
+505 > Oral Language > Sheena Cameron > LANGUAGE > Available
