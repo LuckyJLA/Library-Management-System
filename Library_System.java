@@ -287,7 +287,7 @@ public class Library_System {
 
                 //enter date the book is being borrowed
                 System.out.printf("\n\n%-15s : %s","Date Format", "mm-dd-yyyy");
-                System.out.printf("%-15s : ", "Borrow Date"); 
+                System.out.printf("\n%-15s : ", "Borrow Date"); 
                 String Bdate = input1.next();
                 //if current date then use the comment below
                 //Date dateB = new Date();
