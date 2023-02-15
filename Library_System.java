@@ -264,7 +264,7 @@ public class Library_System {
                 clrscr();
 
                 //name of the borrower
-                System.out.printf("%-15s: ", "Name"); String name = input2.nextLine();
+                System.out.printf("%-15s : ", "Name"); String name = input2.nextLine();
 
                 while( (l = brLogs.readLine()) != null ){
                     if( l.contains(name) && l.contains("To Return")){
