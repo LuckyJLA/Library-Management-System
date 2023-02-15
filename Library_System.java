@@ -496,8 +496,8 @@ public class Library_System {
                 if(dueDate.compareTo(retDate) < 0){
                     long dif = retDate.getTime() - dueDate.getTime();
                     long daysdif = (dif / (1000*60*60*24)) % 365;
-                    System.out.println("BOOK OVERDUE: "+daysdif);
-                    System.out.println("Penalty: " + (daysdif * 10) );
+                    System.out.println("BOOK OVERDUE: "+ daysdif + "day/s");
+                    System.out.println("Penalty: " + (daysdif * 10) + "Php" );
                 }
 
                 System.out.print("\n[A]Confirm\t[B]Cancel\nChoose:");
@@ -809,12 +809,25 @@ public class Library_System {
 
         Scanner username = new Scanner(System.in);
         Scanner password = new Scanner(System.in);
-        String u, p; int attempt = 5, check;
+        String u, p, exit; int attempt = 5, check;
 
         String trigger = "loop"; 
 
         while(trigger == "loop")
         {
+            clrscr();   
+            System.out.println("==========LIBRARY SYSTEM===========\n\n");
+            System.out.printf("%-28s%7s\n", "[O]Log in","[X]Exit");
+            exit = password.nextLine();
+            if (exit.equalsIgnoreCase("X")){
+               check = exitconfirm();
+               if (check == 0){
+                return;
+               }
+            }
+            clrscr();
+
+
             clrscr();
             System.out.println("attempts left: " + attempt);
             System.out.println("==========LIBRARY SYSTEM===========");
