@@ -183,25 +183,25 @@ public class Library_System {
                 catprint("MATH", catsort);
             }
             else if( choice.equalsIgnoreCase("S") ){
-                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                System.out.printf("\n[O]All Science\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
                 catsort = input2.next();
                 clrscr();
                 catprint("SCIENCE", catsort);
             }
             else if( choice.equalsIgnoreCase("L") ){
-                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                System.out.printf("\n[O]All Law\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
                 catsort = input2.next();
                 clrscr();
                 catprint("LAW", catsort);
             }
             else if( choice.equalsIgnoreCase("H") ){
-                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                System.out.printf("\n[O]All History\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
                 catsort = input2.next();
                 clrscr();
                 catprint("HISTORY", catsort);
             }
             else if( choice.equalsIgnoreCase("T") ){
-                System.out.printf("\n[O]All Math\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
+                System.out.printf("\n[O]All Language\t[A]Available Books\t[U]Unavailable Books\nChoice: ");
                 catsort = input2.next();
                 clrscr();
                 catprint("LANGUAGE", catsort);
