@@ -4,6 +4,16 @@ import java.text.*;
 import java.text.ParseException;
 import java.time.*;
 
+/* 
+ * LIBRARY SYSTEM
+ *
+ * MEMBERS
+ * JOSE LUIS ALAMAG
+ * NICOLE MARCELLANA
+ * WINZELLE ANN TOLENTINO
+ * DANIEL VILLEGAS
+ */
+
 public class Library_System {
 
     //clear screen function
@@ -755,6 +765,7 @@ public class Library_System {
 
     }
 
+    //cridential checking
     static int cred_check(String u, String p)throws IOException, ParseException{
         BufferedReader UserDetails = new BufferedReader( new FileReader("UserDetails.txt"));
         Scanner input = new Scanner(System.in);
@@ -766,12 +777,14 @@ public class Library_System {
 
             cont = check.split(" > ");
 
+            //correct cridentials
             if(u.equals(cont[0]) && p.equals(cont[1])){
                 MainMenu();
                 return 1;
             }
             
         }
+        //wrong cridentials
         if( logged == "no" ){
                 
             while( yesno == "loop"){
@@ -790,13 +803,15 @@ public class Library_System {
 
     }
 
+
+    //Log in
     static void log_in()throws IOException, ParseException{
 
         Scanner username = new Scanner(System.in);
         Scanner password = new Scanner(System.in);
         String u, p; int attempt = 5, check;
 
-        String trigger = "loop", yesno = "loop", logged = "no"; 
+        String trigger = "loop"; 
 
         while(trigger == "loop")
         {
